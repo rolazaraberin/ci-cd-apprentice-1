@@ -17,7 +17,7 @@ describe("sum()", () => {
     expect(result).toBeCloseTo(3.3);
   });
   it("should throw an error given 'abc' and 'def'", () => {
-    const stringParameters = () => sum("abc", "def");
+    const stringParameters = () => sum("abc" as any, "def" as any);
     expect(stringParameters).toThrow();
   });
   it("should return the sum given 2 numbers", () => {
