@@ -1,9 +1,9 @@
 const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
+// const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 /*********************************************
  * EXPORT WEBPACK OPTIONS
@@ -25,7 +25,7 @@ module.exports = {
  **************************************************/
 function getEntryOptions() {
   //INFO - https://webpack.js.org/configuration/entry-context/#entry
-  let entryOptions = { index: "./src/index.js" };
+  let entryOptions = { index: "./src/index.ts" };
   // let entryOptions = ["./src/index.js", "./src/index.assets.js"];
   return entryOptions;
 }
@@ -48,19 +48,19 @@ function getModuleOptions() {
   // const moduleOptions = { rules: getRulesOptions() };
   //GATHER ASSETS (PICTURES) IN HTML FILE
   //INFO - https://webpack.js.org/loaders/html-loader
-  let htmlLoaderRules = {
-    test: /\.html$/, //MATCH HTML FILES
-    use: "html-loader",
-  };
-  rulesOptions.push(htmlLoaderRules);
+  // let htmlLoaderRules = {
+  //   test: /\.html$/, //MATCH HTML FILES
+  //   use: "html-loader",
+  // };
+  // rulesOptions.push(htmlLoaderRules);
 
   //BUNDLE PICTURES FROM HTML FILE
   //INFO - https://webpack.js.org/guides/asset-modules
-  let pictureRules = {
-    test: /\.(jpg|svg|png|gif|ico)$/, //MATCH DIFFERENT PICTURE FORMATS WITH OR |
-    type: "asset/resource",
-  };
-  rulesOptions.push(pictureRules);
+  // let pictureRules = {
+  //   test: /\.(jpg|svg|png|gif|ico)$/, //MATCH DIFFERENT PICTURE FORMATS WITH OR |
+  //   type: "asset/resource",
+  // };
+  // rulesOptions.push(pictureRules);
 
   //TRANSLATE WITH BABEL
   //INFO - https://webpack.js.org/loaders/babel-loader/
@@ -69,7 +69,7 @@ function getModuleOptions() {
     options: {
       presets: [
         "@babel/preset-env",
-        "@babel/preset-react",
+        // "@babel/preset-react",
         "@babel/preset-typescript",
       ],
     },
@@ -83,15 +83,16 @@ function getModuleOptions() {
 
   //TRANSLATE SCSS TO CSS
   //INFO - https://webpack.js.org/loaders/sass-loader
-  let miniCssExtractPluginRules = {
-    test: /\.(s)css$/,
-    use: [
-      MiniCssExtractPlugin.loader, //3. CREATE CSS FILE
-      "css-loader", //2. READ IN CSS
-      "sass-loader", //1. TRANSLATE SCSS TO CSS
-    ],
-  };
-  rulesOptions.push(miniCssExtractPluginRules);
+  // let miniCssExtractPluginRules = {
+  //   test: /\.(s)css$/,
+  //   use: [
+  //     MiniCssExtractPlugin.loader, //3. CREATE CSS FILE
+  //     "css-loader", //2. READ IN CSS
+  //     "sass-loader", //1. TRANSLATE SCSS TO CSS
+  //   ],
+  // };
+  // rulesOptions.push(miniCssExtractPluginRules);
+
   return moduleOptions;
 }
 
@@ -107,11 +108,11 @@ function getOptimizationOptions() {
 
   //MINIFY HTML
   //INFO - https://webpack.js.org/plugins/html-minimizer-webpack-plugin
-  minimizerOptions.push(new HtmlMinimizerPlugin());
+  // minimizerOptions.push(new HtmlMinimizerPlugin());
 
   //MINIFY CSS
   //INFO - https://webpack.js.org/plugins/css-minimizer-webpack-plugin
-  minimizerOptions.push(new CssMinimizerPlugin());
+  // minimizerOptions.push(new CssMinimizerPlugin());
 
   //MINIFY JAVASCRIPT
   //INFO - https://webpack.js.org/plugins/terser-webpack-plugin
@@ -130,7 +131,7 @@ function getOutputOptions() {
   let environmentOptions = { arrowFunction: false };
   const path = require("path");
   let outputOptions = {
-    path: path.resolve(__dirname, "public"), //PLACE WEBPACK FILES IN DIST DIRECTORY
+    path: path.resolve(__dirname, "build"), //PLACE WEBPACK FILES IN DIST DIRECTORY
     environment: environmentOptions,
   };
   return outputOptions;
@@ -144,20 +145,20 @@ function getPluginsOptions() {
 
   //DYNAMICALLY INJECT CSS FILE INTO HTML DOM HEAD
   //INFO - https://webpack.js.org/plugins/mini-css-extract-plugin
-  const miniCssExtractPluginOptions = {
-    //filename: "[name].css", //DEFAULT
-    //filename: "[contenthash].css",
-  };
-  pluginsOptions.push(new MiniCssExtractPlugin(miniCssExtractPluginOptions));
+  // const miniCssExtractPluginOptions = {
+  //   //filename: "[name].css", //DEFAULT
+  //   //filename: "[contenthash].css",
+  // };
+  // pluginsOptions.push(new MiniCssExtractPlugin(miniCssExtractPluginOptions));
 
   //DYNAMICALLY INJECT JAVASCRIPT INTO HTML DOM HEAD
   //INFO - https://webpack.js.org/plugins/html-webpack-plugin
-  const htmlWebpackPluginOptions = {
-    template: "./src/index.html", //USE THIS FILE INSTEAD OF AN EMPTY HTML
-    //template: "./public/index.html", //USE THIS FILE INSTEAD OF AN EMPTY HTML
-    //filename: "index.html", //OVERRIDE DEFAULT FILENAME INDEX.HTML
-  };
-  pluginsOptions.push(new HtmlWebpackPlugin(htmlWebpackPluginOptions));
+  // const htmlWebpackPluginOptions = {
+  //   template: "./src/index.html", //USE THIS FILE INSTEAD OF AN EMPTY HTML
+  //   //template: "./public/index.html", //USE THIS FILE INSTEAD OF AN EMPTY HTML
+  //   //filename: "index.html", //OVERRIDE DEFAULT FILENAME INDEX.HTML
+  // };
+  // pluginsOptions.push(new HtmlWebpackPlugin(htmlWebpackPluginOptions));
 
   return pluginsOptions;
 }
@@ -186,22 +187,6 @@ function getResolveOptions() {
       skills: path.resolve("./src/skills/"),
       src: path.resolve("./src/"),
     },
-    // fallback: {
-    //   assert: require.resolve("assert"),
-    //   // async_hooks: false,
-    //   crypto: require.resolve("crypto-browserify"),
-    //   fs: false,
-    //   http: require.resolve("stream-http"),
-    //   net: false,
-    //   path: require.resolve("path-browserify"),
-    //   querystring: require.resolve("querystring-es3"),
-    //   stream: require.resolve("stream-browserify"),
-    //   timers: require.resolve("timers-browserify"),
-    //   tty: require.resolve("tty-browserify"),
-    //   url: require.resolve("url"),
-    //   // util: false,
-    //   zlib: require.resolve("browserify-zlib"),
-    // },
   };
   return resolveOptions;
 }
