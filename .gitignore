@@ -17,7 +17,8 @@ bak.*
 /bak
 
 # production
-# /build
+build/
+compile/
 # */skill*/src/public
 
 # Firebase cache
