@@ -1,4 +1,4 @@
-name: Build
+name: CI/CD Apprentice 1
 run-name: ${{ github.actor }} started GitHub Actions 🚀
 on:
   workflow_run:
