@@ -1,6 +1,10 @@
 name: CI/CD Apprentice 1
 run-name: ${{ github.actor }} started GitHub Actions 🚀
-on: [push]
+on:
+  workflow_run:
+    workflows: ["Test"]
+    branches: [main]
+    types: [completed]
 jobs:
   Build:
     runs-on: ubuntu-latest
