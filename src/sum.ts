@@ -1,3 +1,5 @@
 export default function sum(x: number, y: number) {
-  return 3;
+  if (typeof x !== "number" || typeof y !== "number")
+    throw new Error("ERROR: Numbers only");
+  return x + y;
 }
