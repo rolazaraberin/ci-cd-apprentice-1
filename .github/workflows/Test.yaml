@@ -1,5 +1,5 @@
 name: CI/CD Apprentice 1
-run-name: ${{ github.actor }} started GitHub Actions 🚀
+run-name: Test
 on: [push]
 jobs:
   Test:
