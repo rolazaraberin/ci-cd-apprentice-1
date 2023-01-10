@@ -19,10 +19,17 @@ jobs:
       - run: npm install
       - run: npm run compile
       - run: npm test
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+  Build:
+    runs-on: ubuntu-latest
+    needs: [Test]
+    steps:
       - run: npm run build
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: echo "Copy build to repository"
+      - name: echo "Output downloadable build"
         uses: actions/upload-artifact@v3
         with:
           name: build
           path: build/
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: echo "The build is now ready for download from the Artifacts section"
