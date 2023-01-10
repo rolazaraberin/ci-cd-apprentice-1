@@ -24,4 +24,5 @@ jobs:
       - name: echo "Copy build to repository"
         uses: actions/upload-artifact@v3
         with:
+          name: build
           path: build/
