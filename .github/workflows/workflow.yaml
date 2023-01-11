@@ -38,3 +38,4 @@ jobs:
       - run: |
           echo "🍏 This job's status is ${{ job.status }}."
           echo "The build is now ready for download from the Artifacts section"
+          echo "Simulating a new push"
